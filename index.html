@@ -3,7 +3,9 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>พี่สนใจรับรักจากผมไหม?</title>
+    
+    <title>ม่ายยยบอกกกก</title> 
+    
     <style>
         body {
             font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
@@ -21,53 +23,53 @@
             padding: 30px;
             border-radius: 15px;
             box-shadow: 0 4px 10px rgba(0, 0, 0, 0.1);
-            max-width: 90%; /* เพื่อให้เหมาะกับจอมือถือ */
-            width: 400px; /* จำกัดความกว้าง */
-            margin-bottom: 20px; /* เว้นระยะห่างด้านล่างก่อนถึงรูป */
+            max-width: 90%; 
+            width: 400px; 
+            margin-bottom: 20px; 
         }
         h1 {
-            color: #ff69b4; /* สีชมพู */
+            color: #ff69b4; 
             margin-bottom: 20px;
         }
         .message {
             font-size: 1.5em;
             margin-bottom: 25px;
-            min-height: 1.5em; /* ป้องกันการกระโดดเมื่อข้อความเปลี่ยน */
-            font-weight: bold; /* ทำให้ข้อความเด่นขึ้น */
+            min-height: 1.5em; 
+            font-weight: bold; 
         }
         .buttons {
             display: flex;
             justify-content: center;
-            flex-wrap: wrap; /* ทำให้ปุ่มลงบรรทัดใหม่ได้ถ้าจอเล็ก */
-            gap: 10px; /* ระยะห่างระหว่างปุ่ม */
-            margin-bottom: 20px; /* เว้นระยะห่างด้านล่างปุ่ม */
+            flex-wrap: wrap; 
+            gap: 10px; 
+            margin-bottom: 20px; 
         }
         .buttons button {
             padding: 10px 20px;
             font-size: 1em;
             cursor: pointer;
             border: none;
-            border-radius: 8px;
+            border-radius: 8px; /* คงไว้ที่ 8px เพื่อให้ปุ่มมีมุมมนเล็กน้อย */
             transition: background-color 0.3s;
-            flex-grow: 1; /* ทำให้ปุ่มขยายเต็มพื้นที่ถ้ามีน้อย */
-            min-width: 100px; /* ขนาดขั้นต่ำของปุ่ม */
+            flex-grow: 1; 
+            min-width: 100px; 
         }
         #yesBtn {
-            background-color: #4CAF50; /* เขียว */
+            background-color: #4CAF50; 
             color: white;
         }
         #yesBtn:hover {
             background-color: #45a049;
         }
         #noBtn {
-            background-color: #f44336; /* แดง */
+            background-color: #f44336; 
             color: white;
         }
         #noBtn:hover {
             background-color: #e53935;
         }
         #maybeBtn {
-            background-color: #ffc107; /* เหลือง */
+            background-color: #ffc107; 
             color: black;
         }
         #maybeBtn:hover {
@@ -79,54 +81,53 @@
             display: flex;
             justify-content: center;
             flex-wrap: wrap;
-            gap: 15px; /* ระยะห่างระหว่างรูปภาพ */
-            margin-top: 20px; /* ระยะห่างจากกล่องข้อความ/ปุ่ม */
+            gap: 15px; 
+            margin-top: 20px; 
         }
         .image-gallery img {
-            width: 180px; /* ขนาดรูปภาพ */
-            height: 180px; /* ขนาดรูปภาพ */
-            object-fit: cover; /* ทำให้รูปภาพพอดีกรอบโดยไม่เสียสัดส่วน */
-            border-radius: 10px; /* ขอบมน */
+            width: 180px; 
+            height: 180px; 
+            object-fit: cover; 
+            /* 4. ลบมุมมนของรูปภาพออก */
+            border-radius: 0; /* เปลี่ยนเป็น 0 เพื่อให้เป็นสี่เหลี่ยมจัตุรัส */
             box-shadow: 0 2px 5px rgba(0, 0, 0, 0.1);
-            display: none; /* ซ่อนรูปภาพทั้งหมดไว้ก่อน */
+            display: none; 
         }
     </style>
 </head>
 <body>
 
     <div class="container">
-        <div class="message" id="questionText">พี่สนใจรับรักจากผมไหม?</div>
+        <div class="message" id="questionText">พี่สนใจรับใจจากผมไหม?</div>
         
         <div class="buttons">
-            <button id="yesBtn" onclick="handleResponse('yes')">ใช่</button>
-            <button id="noBtn" onclick="handleResponse('no')">ไม่</button>
-            <button id="maybeBtn" onclick="handleResponse('maybe')">ไม่บอก</button>
+            <button id="yesBtn" onclick="handleResponse('yes')">ช่ายยยย</button>
+            <button id="noBtn" onclick="handleResponse('no')">ม่ายยยย</button>
+            <button id="maybeBtn" onclick="handleResponse('maybe')">ม่ายยยบอกกก</button>
         </div>
     </div>
 
     <div class="image-gallery">
         <img id="image1_1" src="page1_1.jpg" alt="ภาพประกอบคำถามหลัก 1">
         <img id="image1_2" src="page1_2.jpg" alt="ภาพประกอบคำถามหลัก 2">
-
         <img id="image2" src="page2.jpg" alt="ภาพประกอบปฏิเสธ">
-
         <img id="image3_1" src="page3_1.jpg" alt="ภาพประกอบไม่บอก 1">
         <img id="image3_2" src="page3_2.jpg" alt="ภาพประกอบไม่บอก 2">
-
         <img id="image4_1" src="page4_1.jpg" alt="ภาพประกอบตอบรับ 1">
         <img id="image4_2" src="page4_2.jpg" alt="ภาพประกอบตอบรับ 2">
     </div>
 
     <script>
-        // สถานะปัจจุบัน: 1 = ถามคำถามหลัก, 2 = ถามยืนยัน "ไม่เอา", 3 = ถามซ้ำหลัง "ไม่บอก", 4 = ตอบ "ใช่" (จบ)
         let currentState = 1; 
+
+        // 2. แก้ไขคำถามหลักในตัวแปร
+        const initialQuestion = "พี่สนใจรับใจจากผมไหม?";
 
         const questionElement = document.getElementById('questionText');
         const yesButton = document.getElementById('yesBtn');
         const noButton = document.getElementById('noBtn');
         const maybeButton = document.getElementById('maybeBtn');
 
-        // อ้างอิงรูปภาพทั้งหมด
         const allImages = document.querySelectorAll('.image-gallery img');
         const image1_1 = document.getElementById('image1_1');
         const image1_2 = document.getElementById('image1_2');
@@ -136,121 +137,111 @@
         const image4_1 = document.getElementById('image4_1');
         const image4_2 = document.getElementById('image4_2');
 
-        // ฟังก์ชันสำหรับซ่อนรูปภาพทั้งหมด
         function hideAllImages() {
             allImages.forEach(img => {
                 img.style.display = 'none';
             });
         }
 
-        // ฟังก์ชันสำหรับแสดงรูปภาพตามสถานะ
         function updateImages(state) {
-            hideAllImages(); // ซ่อนทั้งหมดก่อน
+            hideAllImages(); 
 
-            if (state === 1) { // รูปภาพสำหรับคำถามหลัก
+            if (state === 1) { 
                 image1_1.style.display = 'inline-block';
                 image1_2.style.display = 'inline-block';
-            } else if (state === 2) { // รูปภาพสำหรับ "แน่ใจนะว่าจะไม่เอาจริง"
+            } else if (state === 2) { 
                 image2.style.display = 'inline-block';
-            } else if (state === 3) { // รูปภาพสำหรับ "เนี่ยยยย ไม่บอกซะด้วย~"
+            } else if (state === 3) { 
                 image3_1.style.display = 'inline-block';
                 image3_2.style.display = 'inline-block';
-            } else if (state === 4) { // รูปภาพสำหรับ "งุ้ยยย ขอบคุณค้าบบบ" (ตอบรับ)
+            } else if (state === 4) { 
                 image4_1.style.display = 'inline-block';
                 image4_2.style.display = 'inline-block';
             }
         }
 
-        // ฟังก์ชันเพื่อตั้งค่าปุ่มกลับไปเป็นคำถามหลัก
+        // 3. แก้ไขข้อความบนปุ่ม
         function resetToInitialButtons() {
-            yesButton.textContent = 'ใช่';
-            noButton.textContent = 'ไม่';
+            yesButton.textContent = 'ช่ายยยย';
+            noButton.textContent = 'ม่ายยยย';
             yesButton.style.display = 'inline-block';
             noButton.style.display = 'inline-block';
-            maybeButton.style.display = 'inline-block'; // แสดงปุ่มไม่บอก
+            maybeButton.style.display = 'inline-block'; 
         }
 
-        // ฟังก์ชันเพื่อตั้งค่าปุ่มเป็น 'ใช่/ไม่' สำหรับ Flow อื่น
         function setYesNoOnly() {
-             yesButton.textContent = 'ใช่';
-             noButton.textContent = 'ไม่';
+             yesButton.textContent = 'ช่ายยยย';
+             noButton.textContent = 'ม่ายยยย';
              yesButton.style.display = 'inline-block';
              noButton.style.display = 'inline-block';
-             maybeButton.style.display = 'none'; // ซ่อนปุ่มไม่บอก
+             maybeButton.style.display = 'none'; 
         }
         
-        // ฟังก์ชันเพื่อตั้งค่าปุ่มเป็น 'ยืนยัน/เปลี่ยนใจ'
         function setConfirmationButtons() {
-             yesButton.textContent = 'ใช่ (ยืนยัน)';
-             noButton.textContent = 'ไม่ (เปลี่ยนใจ)';
+             yesButton.textContent = 'ช่ายยยย (ยืนยัน)'; // แก้ไขข้อความยืนยัน
+             noButton.textContent = 'ม่ายยยย (เปลี่ยนใจ)'; // แก้ไขข้อความเปลี่ยนใจ
              yesButton.style.display = 'inline-block';
              noButton.style.display = 'inline-block';
-             maybeButton.style.display = 'none'; // ซ่อนปุ่มไม่บอก
+             maybeButton.style.display = 'none'; 
         }
 
         function handleResponse(response) {
             if (currentState === 1) {
-                // *** FLOW หลัก: "พี่สนใจรับรักจากผมไหม?" ***
+                // *** FLOW หลัก: "พี่สนใจรับใจจากผมไหม?" ***
                 if (response === 'yes') {
-                    // ตอบ "ใช่" ครั้งแรก
-                    questionElement.innerHTML = "งุ้ยยย ขอบคุณค้าบบบ(⁠｡⁠･⁠ω⁠･⁠｡⁠)⁠ﾉ⁠♡";
-                    currentState = 4; // เปลี่ยนสถานะเป็นตอบรับ
-                    // ซ่อนปุ่มทั้งหมดเพื่อจบโปรแกรม
+                    // ตอบ "ช่ายยยย"
+                    questionElement.innerHTML = "งุ้ยย ขอบคุณค้าบบ(⁠｡⁠･⁠ω⁠･⁠｡⁠)⁠ﾉ⁠♡";
+                    currentState = 4; 
                     yesButton.style.display = 'none';
                     noButton.style.display = 'none';
                     maybeButton.style.display = 'none';
                     
                 } else if (response === 'no') {
-                    // ตอบ "ไม่" ครั้งแรก
+                    // ตอบ "ม่ายยยย"
                     questionElement.innerHTML = "แน่ใจนะว่าจะไม่เอาจริงหยอออ🥺";
                     currentState = 2;
-                    setConfirmationButtons(); // ตั้งค่าปุ่มเป็นยืนยัน/เปลี่ยนใจ
+                    setConfirmationButtons(); 
 
                 } else if (response === 'maybe') {
-                    // ตอบ "ไม่บอก"
-                    questionElement.innerHTML = "เนี่ยยยย ไม่บอกซะด้วย~ สรุปจะรับรักผมไหมค้าบบบ";
+                    // ตอบ "ม่ายยยบอกกก"
+                    questionElement.innerHTML = "เนี่ยยยย ไม่บอกซะด้วยยย~ สรุปจะรับใจผมไหมค้าบบบ"; // แก้ไขข้อความ
                     currentState = 3;
-                    setYesNoOnly(); // ตั้งค่าปุ่มเป็น ใช่/ไม่ ธรรมดา
+                    setYesNoOnly(); 
                 }
                 
             } else if (currentState === 2) {
-                // *** FLOW รอง: "แน่ใจนะว่าจะไม่เอาจริงหยอออ🥺" (หลังตอบ 'ไม่' ครั้งแรก) ***
+                // *** FLOW รอง: "แน่ใจนะว่าจะไม่เอาจริงหยอออ🥺" ***
                 if (response === 'yes') {
-                    // ตอบ "ใช่" (เพื่อยืนยันว่า "ไม่เอา")
+                    // ตอบ "ช่ายยยย (ยืนยัน)"
                     questionElement.innerHTML = "แน่ใจนะว่าจะไม่เอาจริงหยอออ🥺";
-                    // อยู่ในลูปนี้ต่อไป (currentState = 2)
                     
                 } else if (response === 'no') {
-                    // ตอบ "ไม่" (เพื่อ "เปลี่ยนใจ" กลับไปถามใหม่)
-                    questionElement.innerHTML = "พี่สนใจรับรักจากผมไหม?";
+                    // ตอบ "ม่ายยยย (เปลี่ยนใจ)"
+                    questionElement.innerHTML = initialQuestion; // ใช้ตัวแปรคำถามหลัก
                     currentState = 1;
-                    resetToInitialButtons(); // วนกลับไปถามคำถามหลัก
+                    resetToInitialButtons(); 
                 }
 
             } else if (currentState === 3) {
-                // *** FLOW พิเศษ: "สรุปจะรับรักผมไหมค้าบบบ" (หลังตอบ 'ไม่บอก') ***
-                // Flow การทำงานเหมือนคำถามหลัก (currentState = 1) ทุกอย่าง
+                // *** FLOW พิเศษ: "สรุปจะรับใจผมไหมค้าบบบ" ***
                 if (response === 'yes') {
-                    // ตอบ "ใช่"
+                    // ตอบ "ช่ายยยย"
                     questionElement.innerHTML = "งุ้ยยย ขอบคุณค้าบบบ(⁠｡⁠･⁠ω⁠･⁠｡⁠)⁠ﾉ⁠♡";
-                    currentState = 4; // เปลี่ยนสถานะเป็นตอบรับ
-                    // ซ่อนปุ่มทั้งหมดเพื่อจบโปรแกรม
+                    currentState = 4; 
                     yesButton.style.display = 'none';
                     noButton.style.display = 'none';
                     maybeButton.style.display = 'none';
                     
                 } else if (response === 'no') {
-                    // ตอบ "ไม่"
+                    // ตอบ "ม่ายยยย"
                     questionElement.innerHTML = "แน่ใจนะว่าจะไม่เอาจริงหยอออ🥺";
                     currentState = 2;
-                    setConfirmationButtons(); // เปลี่ยนไป Flow 2 (ถามยืนยัน)
+                    setConfirmationButtons(); 
                 }
             }
-            // อัปเดตรูปภาพทุกครั้งที่สถานะเปลี่ยน
             updateImages(currentState);
         }
 
-        // เรียกใช้ครั้งแรกเมื่อโหลดหน้าเว็บ
         updateImages(currentState);
     </script>
 </body>
