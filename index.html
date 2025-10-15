@@ -49,8 +49,8 @@
             font-size: 1em;
             cursor: pointer;
             border: none;
-            border-radius: 8px; /* คงไว้ที่ 8px เพื่อให้ปุ่มมีมุมมนเล็กน้อย */
-            transition: background-color 0.3s;
+            border-radius: 8px; 
+            transition: background-color 0.3s, transform 0.3s, padding 0.3s; /* เพิ่ม transition ให้ดู smooth */
             flex-grow: 1; 
             min-width: 100px; 
         }
@@ -88,8 +88,7 @@
             width: 180px; 
             height: 180px; 
             object-fit: cover; 
-            /* 4. ลบมุมมนของรูปภาพออก */
-            border-radius: 0; /* เปลี่ยนเป็น 0 เพื่อให้เป็นสี่เหลี่ยมจัตุรัส */
+            border-radius: 0; 
             box-shadow: 0 2px 5px rgba(0, 0, 0, 0.1);
             display: none; 
         }
@@ -119,8 +118,10 @@
 
     <script>
         let currentState = 1; 
+        // **1. ตัวแปรนับจำนวนการยืนยันปฏิเสธ**
+        let rejectionCount = 0; 
+        const MAX_REJECTIONS = 5;
 
-        // 2. แก้ไขคำถามหลักในตัวแปร
         const initialQuestion = "พี่สนใจรับใจจากผมไหม?";
 
         const questionElement = document.getElementById('questionText');
@@ -160,13 +161,18 @@
             }
         }
 
-        // 3. แก้ไขข้อความบนปุ่ม
         function resetToInitialButtons() {
             yesButton.textContent = 'ช่ายยยย';
             noButton.textContent = 'ม่ายยยย';
             yesButton.style.display = 'inline-block';
             noButton.style.display = 'inline-block';
             maybeButton.style.display = 'inline-block'; 
+            
+            // **รีเซ็ตขนาดปุ่มและตัวนับเมื่อกลับมาที่ Flow หลัก**
+            yesButton.style.padding = '10px 20px'; // คืนค่า padding เดิม
+            yesButton.style.fontSize = '1em'; // คืนค่า font size เดิม
+            yesButton.style.transform = 'scale(1)'; // คืนค่าขนาดเดิม
+            rejectionCount = 0; 
         }
 
         function setYesNoOnly() {
@@ -175,57 +181,52 @@
              yesButton.style.display = 'inline-block';
              noButton.style.display = 'inline-block';
              maybeButton.style.display = 'none'; 
+             // **รีเซ็ตขนาดปุ่มสำหรับ Flow นี้**
+             yesButton.style.padding = '10px 20px';
+             yesButton.style.fontSize = '1em';
+             yesButton.style.transform = 'scale(1)';
+             rejectionCount = 0;
         }
         
         function setConfirmationButtons() {
-             yesButton.textContent = 'ช่ายยยย (ยืนยัน)'; // แก้ไขข้อความยืนยัน
-             noButton.textContent = 'ม่ายยยย (เปลี่ยนใจ)'; // แก้ไขข้อความเปลี่ยนใจ
+             yesButton.textContent = 'ช่ายยยย (ยืนยัน)'; 
+             noButton.textContent = 'ม่ายยยย (เปลี่ยนใจ)'; 
              yesButton.style.display = 'inline-block';
              noButton.style.display = 'inline-block';
              maybeButton.style.display = 'none'; 
+             
+             // **ใช้ขนาดปุ่มล่าสุด** (ไม่ต้องรีเซ็ต)
+             updateShrinkingButton(); 
+        }
+
+        // **ฟังก์ชันใหม่: อัปเดตขนาดปุ่มย่อ**
+        function updateShrinkingButton() {
+            if (rejectionCount < MAX_REJECTIONS) {
+                // คำนวณการย่อขนาด (เช่น ลดลงทีละ 20% ของขนาดเดิม)
+                let scale = 1 - (rejectionCount * 0.2); 
+                if (scale < 0.2) scale = 0.2; // กำหนดขนาดขั้นต่ำ
+                
+                // ใช้ CSS transform ในการย่อขนาดปุ่ม
+                yesButton.style.transform = `scale(${scale})`;
+                
+                // ปรับ padding และ font size เพื่อให้ข้อความยังคงอ่านง่ายขึ้นเล็กน้อยเมื่อปุ่มเล็กลงมาก
+                // (ถ้าใช้ transform scale อย่างเดียว ข้อความจะเล็กลงตามปุ่ม)
+                let newPadding = 10 * scale; 
+                let newFontSize = 1 * scale; 
+                // yesButton.style.padding = `${newPadding}px ${newPadding * 2}px`;
+                // yesButton.style.fontSize = `${newFontSize}em`;
+                
+                // เพื่อให้เห็นผลชัดเจนที่สุด ผมจะใช้แค่ transform scale
+            } else {
+                // **ตัดปุ่มออกเมื่อครบ 5 ครั้ง**
+                yesButton.style.display = 'none';
+            }
         }
 
         function handleResponse(response) {
             if (currentState === 1) {
                 // *** FLOW หลัก: "พี่สนใจรับใจจากผมไหม?" ***
                 if (response === 'yes') {
-                    // ตอบ "ช่ายยยย"
-                    questionElement.innerHTML = "งุ้ยย ขอบคุณค้าบบ(⁠｡⁠･⁠ω⁠･⁠｡⁠)⁠ﾉ⁠♡";
-                    currentState = 4; 
-                    yesButton.style.display = 'none';
-                    noButton.style.display = 'none';
-                    maybeButton.style.display = 'none';
-                    
-                } else if (response === 'no') {
-                    // ตอบ "ม่ายยยย"
-                    questionElement.innerHTML = "แน่ใจนะว่าจะไม่เอาจริงหยอออ🥺";
-                    currentState = 2;
-                    setConfirmationButtons(); 
-
-                } else if (response === 'maybe') {
-                    // ตอบ "ม่ายยยบอกกก"
-                    questionElement.innerHTML = "เนี่ยยยย ไม่บอกซะด้วยยย~ สรุปจะรับใจผมไหมค้าบบบ"; // แก้ไขข้อความ
-                    currentState = 3;
-                    setYesNoOnly(); 
-                }
-                
-            } else if (currentState === 2) {
-                // *** FLOW รอง: "แน่ใจนะว่าจะไม่เอาจริงหยอออ🥺" ***
-                if (response === 'yes') {
-                    // ตอบ "ช่ายยยย (ยืนยัน)"
-                    questionElement.innerHTML = "แน่ใจนะว่าจะไม่เอาจริงหยอออ🥺";
-                    
-                } else if (response === 'no') {
-                    // ตอบ "ม่ายยยย (เปลี่ยนใจ)"
-                    questionElement.innerHTML = initialQuestion; // ใช้ตัวแปรคำถามหลัก
-                    currentState = 1;
-                    resetToInitialButtons(); 
-                }
-
-            } else if (currentState === 3) {
-                // *** FLOW พิเศษ: "สรุปจะรับใจผมไหมค้าบบบ" ***
-                if (response === 'yes') {
-                    // ตอบ "ช่ายยยย"
                     questionElement.innerHTML = "งุ้ยยย ขอบคุณค้าบบบ(⁠｡⁠･⁠ω⁠･⁠｡⁠)⁠ﾉ⁠♡";
                     currentState = 4; 
                     yesButton.style.display = 'none';
@@ -233,7 +234,51 @@
                     maybeButton.style.display = 'none';
                     
                 } else if (response === 'no') {
-                    // ตอบ "ม่ายยยย"
+                    // ตอบ "ม่ายยยย" ครั้งแรก เข้าสู่ Flow 2
+                    questionElement.innerHTML = "แน่ใจนะว่าจะไม่เอาจริงหยอออ🥺";
+                    currentState = 2;
+                    setConfirmationButtons(); 
+
+                } else if (response === 'maybe') {
+                    questionElement.innerHTML = "เนี่ยยยย ม่ายยยบอกกกกซะด้วย~ สรุปจะรับใจผมไหมค้าบบบ"; 
+                    currentState = 3;
+                    setYesNoOnly(); 
+                }
+                
+            } else if (currentState === 2) {
+                // *** FLOW รอง: "แน่ใจนะว่าจะไม่เอาจริงหยอออ🥺" ***
+                if (response === 'yes') {
+                    // **ผู้ใช้กดยืนยันปฏิเสธ**
+                    rejectionCount++; // นับเพิ่ม
+
+                    if (rejectionCount >= MAX_REJECTIONS) {
+                        // ครบ 5 ครั้ง ให้แสดงข้อความสุดท้ายและซ่อนปุ่มยืนยัน
+                        questionElement.innerHTML = "แน่ใจนะว่าจะไม่เอาจริงหยอออ🥺";
+                        yesButton.style.display = 'none'; // ซ่อนปุ่ม "ช่ายยยย (ยืนยัน)"
+                        // ปุ่ม "ม่ายยยย (เปลี่ยนใจ)" ยังคงอยู่
+                    } else {
+                        // ยังไม่ครบ 5 ครั้ง ให้แสดงข้อความเดิม
+                        questionElement.innerHTML = "แน่ใจนะว่าจะไม่เอาจริงหยอออ🥺";
+                        updateShrinkingButton(); // ย่อขนาดปุ่ม
+                    }
+                    
+                } else if (response === 'no') {
+                    // ตอบ "ม่ายยยย (เปลี่ยนใจ)"
+                    questionElement.innerHTML = initialQuestion; 
+                    currentState = 1;
+                    resetToInitialButtons(); // วนกลับไป Flow หลัก
+                }
+
+            } else if (currentState === 3) {
+                // *** FLOW พิเศษ: "สรุปจะรับใจผมไหมค้าบบบ" ***
+                if (response === 'yes') {
+                    questionElement.innerHTML = "งุ้ยยย ขอบคุณค้าบบบ(⁠｡⁠･⁠ω⁠･⁠｡⁠)⁠ﾉ⁠♡";
+                    currentState = 4; 
+                    yesButton.style.display = 'none';
+                    noButton.style.display = 'none';
+                    maybeButton.style.display = 'none';
+                    
+                } else if (response === 'no') {
                     questionElement.innerHTML = "แน่ใจนะว่าจะไม่เอาจริงหยอออ🥺";
                     currentState = 2;
                     setConfirmationButtons(); 
